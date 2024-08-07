@@ -21,10 +21,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 50px;
+  gap: 40px;
   border: 1px solid #cdbda3;
-  border-radius: 20px;
-  padding: 20px 20px;
+  border-radius: 30px;
+  padding: 20px 45px;
   height: 10rem;
 }
 .title {
@@ -48,7 +48,7 @@ body {
 .number {
   border-radius: 50%;
   background-color: #f55632;
-  padding: 30px;
+  padding: 40px;
 }
 .number p {
   color: black;
