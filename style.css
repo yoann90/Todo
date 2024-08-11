@@ -112,7 +112,7 @@ body {
 .name-tache {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 500px;
 }
 .name-tache .done {
   text-decoration: line-through;
