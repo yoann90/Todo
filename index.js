@@ -1,3 +1,5 @@
+import TasksService from "./tasks.service.js";
+
 const list = document.querySelector(".list");
 const form = document.querySelector("form");
 const input = document.querySelector("form > input");
@@ -14,6 +16,10 @@ const todos = [
     EditMode: false,
   },
 ];
+
+const tasks = [];
+
+const taskService = TasksService(tasks);
 
 function GetTodo() {
   const NewTodo = todos.map((todo, index) => {
