@@ -1,6 +1,4 @@
-export const TaskService = () => {
-  const tasks = [];
-
+const TasksService = (tasks) => {
   function addTaskById(task) {
     tasks.push(task);
   }
@@ -39,3 +37,5 @@ export const TaskService = () => {
     deleteTaskById,
   };
 };
+
+export default TasksService;
