@@ -9,7 +9,6 @@ const input = document.querySelector("form > input");
 function handleTaskAction(id, action) {
   if (action === "create") {
     taskService.addTaskById(id);
-    console.log(tasks);
   } else if (action === "edit") {
     const task = taskService.getTaskById(id);
     const div = document.getElementById(`name-tache-${id}`);
@@ -31,7 +30,6 @@ function handleTaskAction(id, action) {
   } else if (action === "toggleDone") {
     const task = taskService.getTaskById(id);
     taskService.editTaskById(id, task.text, !task.done);
-    console.log(tasks);
   }
   renderTasks();
 }
@@ -77,7 +75,7 @@ function renderTaskContent(id, text, done) {
 form.onsubmit = (e) => {
   e.preventDefault();
   handleTaskAction(
-    { id: `task-${tasks.length + 1}`, text: input.value, done: false },
+    { id: `task-${Date.now()}`, text: input.value, done: false },
     "create"
   );
   input.value = "";
