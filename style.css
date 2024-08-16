@@ -138,7 +138,7 @@ body {
   display: flex;
   justify-content: flex-end;
 }
-.trash svg {
+.trash img {
   cursor: pointer;
   width: 30%;
 }
@@ -149,7 +149,7 @@ body {
   left: 50px;
   /* gap:10px; */
 }
-.edit svg {
+.edit img {
   cursor: pointer;
   width: 30%;
 }
