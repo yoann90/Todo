@@ -50,11 +50,11 @@ function renderTask(task) {
       ${renderTaskContent(task.id, task.text, task.done)}
     </div>
     <div class="emojis">
-      <div class="trash" id="trash-${task.id}">
-        <img src="./img/trash.svg"/>
-      </div>
       <div class="edit" id="edit-${task.id}">
         <img src="./img/edit.svg"/>
+      </div>
+      <div class="trash" id="trash-${task.id}">
+        <img src="./img/trash.svg"/>
       </div>
     </div>
   `;
