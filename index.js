@@ -6,6 +6,8 @@ const list = document.querySelector(".list");
 const form = document.querySelector("form");
 const input = document.querySelector("form > input");
 
+let taskCount = 0;
+
 function handleTaskAction(id, action) {
   if (action === "create") {
     taskService.addTaskById(id);
@@ -29,17 +31,37 @@ function handleTaskAction(id, action) {
   } else if (action === "remove") {
     document.getElementById(`li-${id}`).remove();
     taskService.deleteTaskById(id);
+
+    taskCount -= 1;
+    setDoneCount();
   } else if (action === "toggleDone") {
     const task = taskService.getTaskById(id);
-    taskService.editTaskById(id, task.text, !task.done);
+    const newDoneStatus = !task.done;
+    taskService.editTaskById(id, task.text, newDoneStatus);
     document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
       id,
       task.text,
-      !task.done
+      newDoneStatus
     );
     reattachEventListeners(id);
+    setDoneCount();
   }
 }
+
+function getDoneCount() {
+  return tasks.filter((task) => task.done).length;
+}
+
+function setDoneCount() {
+  const doneCount = getDoneCount();
+  const totalCount = taskCount;
+  const numberDiv = document.querySelector(".number");
+
+  numberDiv.innerHTML = `<p>${doneCount}/${totalCount}</p>`;
+}
+
+setDoneCount();
+renderTasks();
 
 function renderTask(task) {
   const li = document.createElement("li");
@@ -91,7 +113,15 @@ form.onsubmit = (e) => {
   e.preventDefault();
   const taskId = `task-${Date.now()}`;
   handleTaskAction({ id: taskId, text: input.value, done: false }, "create");
+
+  taskCount += 1;
+  setDoneCount();
+
   input.value = "";
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  setDoneCount();
+});
 
 renderTasks();
