@@ -1,5 +1,6 @@
 import TasksService from "./tasks.service.js";
-const tasks = [];
+
+const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 const taskService = TasksService(tasks);
 
 const list = document.querySelector(".list");
@@ -11,6 +12,7 @@ let taskCount = 0;
 function handleTaskAction(id, action) {
   if (action === "create") {
     taskService.addTaskById(id);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
     renderTask(taskService.getTaskById(id.id));
   } else if (action === "edit") {
     const task = taskService.getTaskById(id);
@@ -28,12 +30,14 @@ function handleTaskAction(id, action) {
         `name-tache-${id}`
       ).innerHTML = `<input id="input-${id}" value="${task.text}">`;
     }
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   } else if (action === "remove") {
     document.getElementById(`li-${id}`).remove();
     taskService.deleteTaskById(id);
 
     taskCount -= 1;
     setDoneCount();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   } else if (action === "toggleDone") {
     const task = taskService.getTaskById(id);
     const newDoneStatus = !task.done;
@@ -45,6 +49,7 @@ function handleTaskAction(id, action) {
     );
     reattachEventListeners(id);
     setDoneCount();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }
 }
 
