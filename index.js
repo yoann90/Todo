@@ -103,9 +103,14 @@ function renderTasks() {
 }
 
 function renderTaskContent(id, text, done) {
-  return `<span id="span-${id}" class="todo ${
-    done ? "done" : ""
-  }"></span><h1 class="${done ? "done" : ""}">${text}</h1>`;
+  return `<div class="clock">
+            <img src="./img/clock.svg"/>
+            <span class = "date">19 Aug 2024</span>
+          </div>
+          <div class = "content">
+            <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
+            <h1 class="${done ? "done" : ""}">${text}</h1>
+          </div>`;
 }
 
 function reattachEventListeners(id) {

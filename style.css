@@ -125,11 +125,30 @@ body {
 }
 
 .name-tache {
+  width: 100%;
+}
+
+.clock {
+  width: 100%;
+  display: flex;
+  align-items: top;
+  padding-bottom: 10px;
+}
+
+.content {
   display: flex;
   align-items: center;
-  width: 75%;
   gap: 10px;
   padding-left: 10px;
+}
+
+.clock img {
+  width: 20px;
+}
+
+.date {
+  color: #cdbda3;
+  font-size: small;
 }
 
 .name-tache .done {
