@@ -6,16 +6,17 @@
 
 body {
   background: black;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 400px;
+  max-width: 350px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .section-1 {
   display: flex;
@@ -24,13 +25,12 @@ body {
   gap: 50px;
   border: 1px solid #cdbda3;
   border-radius: 20px;
-  padding: 20px 20px;
   height: 10rem;
+  width: 100%;
 }
 .title {
   display: flex;
   align-items: flex-start;
-
   flex-direction: column;
 }
 .title h1 {
@@ -46,39 +46,51 @@ body {
 }
 
 .number {
-  border-radius: 50%;
   background-color: #f55632;
-  padding: 30px;
+  width: 110px;
+  height: 110px;
+  border-radius: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .number p {
   color: black;
   font-size: 2rem;
   font-weight: bolder;
+  letter-spacing: 2px;
 }
 
 .form {
-  margin-top: 50px;
+  margin-top: 25px;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  width: 97%;
 }
 .form input {
   color: white;
   border: 1px solid black;
-  border-radius: 20px;
-  padding: 10px 60px;
+  border-radius: 15px;
   background-color: #1e1e1e;
+  padding: 10px 12px;
   outline: none;
+  width: 100%;
 }
 .form button {
   border: 1px solid #f55632;
-  border-radius: 50%;
   background-color: #f55632;
   font-size: 1.5rem;
   font-weight: 700;
-  width: 40px;
-  height: 40px;
   cursor: pointer;
+  width: 34.1px;
+  height: 30px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .list {
@@ -96,24 +108,30 @@ body {
   border: 1px solid #cdbda3;
   border-radius: 10px;
   padding: 10px 10px;
-  width: 40%;
+  width: 100%;
   margin-top: 30px;
   background-color: #1e1e1e;
 }
 .tache svg {
   color: #cdbda3;
-  /* width: 20%; */
 }
 .tache h1 {
   color: #cdbda3;
   font-size: 1.5rem;
+  max-width: 80%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
 .name-tache {
   display: flex;
   align-items: center;
-  width: 500px;
+  width: 75%;
+  gap: 10px;
+  padding-left: 10px;
 }
+
 .name-tache .done {
   text-decoration: line-through;
 }
@@ -122,10 +140,9 @@ body {
   border: 2px solid #57cb4c;
 }
 .name-tache .todo {
-  flex: 0 0 20px;
-  height: 20px;
+  flex: 0 0 1.5rem;
+  height: 1.5rem;
   border-radius: 30px;
-  margin-right: 15px;
   border: 2px solid #f55632;
   cursor: pointer;
 }
@@ -133,26 +150,28 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 25%;
+  gap: 10px;
+  margin-right: 20px;
 }
 .trash {
   display: flex;
   justify-content: flex-end;
+  width: 30px;
 }
 .trash img {
   cursor: pointer;
-  width: 30%;
 }
 .edit {
   position: relative;
   display: flex;
   justify-content: flex-end;
-  left: 50px;
-  /* gap:10px; */
+  width: 30px;
 }
 .edit img {
   cursor: pointer;
-  width: 30%;
 }
+
 .emojis > input {
   color: white;
   border: 1px solid black;
