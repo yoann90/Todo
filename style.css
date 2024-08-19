@@ -133,6 +133,7 @@ body {
   display: flex;
   align-items: top;
   padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 .content {
@@ -149,6 +150,7 @@ body {
 .date {
   color: #cdbda3;
   font-size: small;
+  padding-left: 2px;
 }
 
 .name-tache .done {
