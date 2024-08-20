@@ -211,6 +211,7 @@ body {
   border-radius: 10px;
   font-size: large;
   padding: 10px;
+  overflow: hidden;
 }
 
 .textarea-modif::-webkit-scrollbar {
