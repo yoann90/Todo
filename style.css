@@ -125,11 +125,10 @@ body {
 }
 
 .name-tache {
-  width: 100%;
+  max-width: 70%;
 }
 
 .clock {
-  width: 100%;
   display: flex;
   align-items: top;
   padding-bottom: 10px;
