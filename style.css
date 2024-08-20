@@ -206,4 +206,13 @@ body {
   color: white;
   border: none;
   outline: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: large;
+}
+
+.textarea-modif::-webkit-scrollbar {
+  display: none; /* Pour Chrome, Safari, et Opera */
 }
