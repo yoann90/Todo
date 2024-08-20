@@ -64,6 +64,8 @@ body {
   transition: 0.4s;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
 }
 
 .slider:before {
@@ -83,22 +85,17 @@ input:checked + .slider:before {
 }
 
 .icon {
-  position: absolute;
-  top: 15px;
   transform: translateY(-16px);
-  width: 26px;
-  height: 26px;
+  height: 0px;
   transition: opacity 0.4s;
 }
 
 .moon {
-  height: 32px;
   left: 5px;
   color: #f1c40f;
 }
 
 .sun {
-  height: 32px;
   right: -1px;
   color: #fff;
   opacity: 0.1;
