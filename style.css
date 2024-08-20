@@ -54,7 +54,7 @@ body {
 }
 
 .slider {
-  width: 60px; /* Taille ajustée du slider */
+  width: 60px;
   height: 30px;
   position: relative;
   cursor: pointer;
@@ -70,7 +70,7 @@ body {
   content: "";
   height: 24px;
   width: 24px;
-  left: 4px; /* Ajustement de la position initiale */
+  left: 3px;
   bottom: 3px;
   background-color: #f55632;
   border-radius: 50px;
@@ -78,7 +78,7 @@ body {
 }
 
 input:checked + .slider:before {
-  transform: translateX(30px); /* Ajusté pour qu'il ne dépasse pas */
+  transform: translateX(30px);
 }
 
 .icon {
