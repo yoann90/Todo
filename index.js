@@ -11,46 +11,106 @@ let taskCount = 0;
 
 function handleTaskAction(id, action) {
   if (action === "create") {
-    taskService.addTaskById(id);
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    renderTask(taskService.getTaskById(id.id));
+    create(id);
   } else if (action === "edit") {
-    const task = taskService.getTaskById(id);
-    const inputEl = document.getElementById(`input-${id}`);
-    if (inputEl) {
-      const newText = inputEl.value.trim();
-      if (newText) {
-        taskService.editTaskById(id, newText, task.done);
-        document.getElementById(`name-tache-${id}`).innerHTML =
-          renderTaskContent(id, newText, task.done);
-        reattachEventListeners(id);
-      }
-    } else {
-      document.getElementById(
-        `name-tache-${id}`
-      ).innerHTML = `<input id="input-${id}" value="${task.text}">`;
-    }
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    edit(id);
   } else if (action === "remove") {
-    document.getElementById(`li-${id}`).remove();
-    taskService.deleteTaskById(id);
-
-    taskCount -= 1;
-    setDoneCount();
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    remove(id);
   } else if (action === "toggleDone") {
-    const task = taskService.getTaskById(id);
-    const newDoneStatus = !task.done;
-    taskService.editTaskById(id, task.text, newDoneStatus);
-    document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
-      id,
-      task.text,
-      newDoneStatus
-    );
-    reattachEventListeners(id);
-    setDoneCount();
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    toggleDone(id);
   }
+}
+
+function create(id) {
+  taskService.addTaskById(id);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  renderTask(taskService.getTaskById(id.id));
+}
+
+function edit(id) {
+  const task = taskService.getTaskById(id);
+  const inputEl = document.getElementById(`input-${id}`);
+
+  if (inputEl) {
+    const newText = inputEl.value.trim();
+    if (newText) {
+      taskService.editTaskById(id, newText, task.done);
+      document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+        id,
+        newText,
+        task.done
+      );
+      reattachEventListeners(id);
+
+      const trash = document.getElementById(`trash-${id}`);
+      trash.style.pointerEvents = "auto";
+      trash.style.opacity = "1";
+
+      const span = document.getElementById(`span-${id}`);
+      span.style.pointerEvents = "auto";
+      span.style.opacity = "1";
+    }
+  } else {
+    const trash = document.getElementById(`trash-${id}`);
+    trash.style.pointerEvents = "none";
+    trash.style.opacity = "0.5";
+
+    const span = document.getElementById(`span-${id}`);
+    span.style.pointerEvents = "none";
+    span.style.opacity = "0.5";
+
+    const input = document.createElement("input");
+
+    input.id = `input-${id}`;
+    input.value = task.text;
+    input.classList.add("input-modif");
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleTaskAction(id, "edit");
+      }
+    });
+
+    input.addEventListener("blur", function () {
+      handleTaskAction(id, "edit");
+    });
+
+    const nameTache = document.getElementById(`content-${id}`);
+    const h1Element = nameTache.querySelector("h1");
+    h1Element.remove();
+    nameTache.appendChild(input);
+    input.focus();
+
+    const editButton = document.getElementById(`edit-${id}`);
+    editButton.addEventListener("mousedown", function (event) {
+      event.preventDefault();
+      input.focus();
+    });
+  }
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function remove(id) {
+  document.getElementById(`li-${id}`).remove();
+  taskService.deleteTaskById(id);
+
+  taskCount -= 1;
+  setDoneCount();
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function toggleDone(id) {
+  const task = taskService.getTaskById(id);
+  const newDoneStatus = !task.done;
+  taskService.editTaskById(id, task.text, newDoneStatus);
+  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+    id,
+    task.text,
+    newDoneStatus
+  );
+  reattachEventListeners(id);
+  setDoneCount();
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function getDoneCount() {
@@ -64,9 +124,6 @@ function setDoneCount() {
 
   numberDiv.innerHTML = `<p>${doneCount}/${totalCount}</p>`;
 }
-
-setDoneCount();
-renderTasks();
 
 function renderTask(task) {
   const li = document.createElement("li");
@@ -107,7 +164,7 @@ function renderTaskContent(id, text, done) {
             <img src="./img/clock.svg"/>
             <span class = "date">19 Aug 2024</span>
           </div>
-          <div class = "content">
+          <div class = "content" id = "content-${id}">
             <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
             <h1 class="${done ? "done" : ""}">${text}</h1>
           </div>`;
@@ -134,4 +191,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setDoneCount();
 });
 
+setDoneCount();
 renderTasks();

@@ -201,3 +201,8 @@ body {
   background-color: #1e1e1e;
   outline: none;
 }
+
+.input-modif {
+  background-color: transparent;
+  color: white;
+}
