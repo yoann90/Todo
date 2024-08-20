@@ -54,11 +54,11 @@ body {
 }
 
 .slider {
-  width: 70px;
-  height: 40px;
+  width: 60px; /* Taille ajustée du slider */
+  height: 30px;
   position: relative;
   cursor: pointer;
-  background-color: #ccc;
+  background-color: #313131;
   border-radius: 34px;
   transition: 0.4s;
   display: flex;
@@ -68,21 +68,17 @@ body {
 .slider:before {
   position: absolute;
   content: "";
-  height: 34px;
-  width: 34px;
-  left: 3px;
-  bottom: 2px;
-  background-color: white;
+  height: 24px;
+  width: 24px;
+  left: 4px; /* Ajustement de la position initiale */
+  bottom: 3px;
+  background-color: #f55632;
   border-radius: 50%;
   transition: 0.4s;
 }
 
-input:checked + .slider {
-  background-color: #007bff;
-}
-
 input:checked + .slider:before {
-  transform: translateX(30px);
+  transform: translateX(30px); /* Ajusté pour qu'il ne dépasse pas */
 }
 
 .icon {
@@ -91,29 +87,28 @@ input:checked + .slider:before {
   transform: translateY(-50%);
   width: 26px;
   height: 26px;
+  transition: opacity 0.4s;
 }
 
 .moon {
-  right: 10px;
-  bottom: 10px;
-  left: 6px;
-  height: 25px;
+  height: 32px;
+  left: 5px;
   color: #f1c40f;
 }
 
 .sun {
-  right: 6px;
+  height: 32px;
+  right: -2px;
   color: #fff;
-  opacity: 0;
-  transition: opacity 0.4s;
+  opacity: 0.1;
+}
+
+input:checked + .slider .moon {
+  opacity: 0.1;
 }
 
 input:checked + .slider .sun {
   opacity: 1;
-}
-
-input:checked + .slider .moon {
-  opacity: 0;
 }
 
 .container {
