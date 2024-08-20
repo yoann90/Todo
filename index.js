@@ -71,14 +71,33 @@ function edit(id) {
       }
     });
 
-    textarea.addEventListener("blur", function () {
-      handleTaskAction(id, "edit");
+    let shouldHandleBlur = true;
+    const listItem = document.getElementById(`li-${id}`);
+
+    // Écouteur pour détecter un clic sur le document
+    document.addEventListener("mousedown", function (event) {
+      // Si le clic est à l'intérieur du <li> "card", on empêche l'action sur blur
+      if (listItem.contains(event.target)) {
+        shouldHandleBlur = false;
+      } else {
+        shouldHandleBlur = true;
+      }
+    });
+
+    textarea.addEventListener("blur", function (event) {
+      // Si le clic s'est produit en dehors de la "card", exécuter l'action
+      if (shouldHandleBlur) {
+        handleTaskAction(id, "edit");
+      } else {
+        textarea.focus();
+      }
     });
 
     const nameTache = document.getElementById(`content-${id}`);
     const h1Element = nameTache.querySelector("h1");
     h1Element.remove();
     nameTache.appendChild(textarea);
+    textarea.focus();
 
     const editButton = document.getElementById(`edit-${id}`);
     editButton.addEventListener("mousedown", function (event) {
