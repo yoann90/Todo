@@ -73,7 +73,7 @@ body {
   left: 4px; /* Ajustement de la position initiale */
   bottom: 3px;
   background-color: #f55632;
-  border-radius: 50%;
+  border-radius: 50px;
   transition: 0.4s;
 }
 
@@ -83,8 +83,8 @@ input:checked + .slider:before {
 
 .icon {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 15px;
+  transform: translateY(-16px);
   width: 26px;
   height: 26px;
   transition: opacity 0.4s;
