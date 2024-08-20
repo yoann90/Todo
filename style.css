@@ -98,7 +98,7 @@ input:checked + .slider:before {
 
 .sun {
   height: 32px;
-  right: -2px;
+  right: -1px;
   color: #fff;
   opacity: 0.1;
 }
