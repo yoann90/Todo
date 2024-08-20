@@ -29,7 +29,7 @@ function create(id) {
 
 function edit(id) {
   const task = taskService.getTaskById(id);
-  const inputEl = document.getElementById(`input-${id}`);
+  const inputEl = document.getElementById(`textarea-${id}`);
 
   if (inputEl) {
     const newText = inputEl.value.trim();
@@ -59,32 +59,30 @@ function edit(id) {
     span.style.pointerEvents = "none";
     span.style.opacity = "0.5";
 
-    const input = document.createElement("input");
+    const textarea = document.createElement("textarea");
 
-    input.id = `input-${id}`;
-    input.value = task.text;
-    input.classList.add("input-modif");
+    textarea.id = `textarea-${id}`;
+    textarea.value = task.text;
+    textarea.classList.add("textarea-modif");
 
-    input.addEventListener("keydown", function (event) {
+    textarea.addEventListener("keydown", function (event) {
       if (event.key === "Enter") {
         handleTaskAction(id, "edit");
       }
     });
 
-    input.addEventListener("blur", function () {
+    textarea.addEventListener("blur", function () {
       handleTaskAction(id, "edit");
     });
 
     const nameTache = document.getElementById(`content-${id}`);
     const h1Element = nameTache.querySelector("h1");
     h1Element.remove();
-    nameTache.appendChild(input);
-    input.focus();
+    nameTache.appendChild(textarea);
 
     const editButton = document.getElementById(`edit-${id}`);
     editButton.addEventListener("mousedown", function (event) {
       event.preventDefault();
-      input.focus();
     });
   }
   localStorage.setItem("tasks", JSON.stringify(tasks));
