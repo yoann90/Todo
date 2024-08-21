@@ -5,11 +5,13 @@
 }
 
 body {
-  background: black;
+  background: #1e1e1e;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-top: 70px;
   margin: 0;
+  transition: background 0.4s, color 0.4s;
+  color: #e4d3b6;
 }
 
 .header {
@@ -27,15 +29,14 @@ body {
   max-width: 350px;
   height: 50px;
   z-index: 1000;
-  background-color: black;
+  background-color: #1e1e1e;
+  transition: background-color 0.4s;
 }
-
 
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #e4d3b6;
 }
 
 
@@ -118,6 +119,7 @@ input:checked + .slider .sun {
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
 .section-1 {
   display: flex;
   align-items: center;
@@ -128,16 +130,19 @@ input:checked + .slider .sun {
   height: 10rem;
   width: 100%;
 }
+
 .title {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
 }
+
 .title h1 {
   color: #cdbda3;
   font-size: 1.5rem;
   font-weight: bolder;
 }
+
 .title p {
   color: #cdbda3;
   font-size: 1rem;
@@ -146,7 +151,7 @@ input:checked + .slider .sun {
 }
 
 .number {
-  background-color: #f55632;
+  background-color: #333;
   width: 110px;
   height: 110px;
   border-radius: 110px;
@@ -155,8 +160,9 @@ input:checked + .slider .sun {
   justify-content: center;
   text-align: center;
 }
+
 .number p {
-  color: black;
+  color: white;
   font-size: 2rem;
   font-weight: bolder;
   letter-spacing: 2px;
@@ -169,15 +175,17 @@ input:checked + .slider .sun {
   gap: 10px;
   width: 97%;
 }
+
 .form input {
-  color: white;
-  border: 1px solid black;
+  color: #e4d3b6;
+  border: 1px solid #ccc;
   border-radius: 15px;
-  background-color: #1e1e1e;
+  background-color: #333;
   padding: 10px 12px;
   outline: none;
   width: 100%;
 }
+
 .form button {
   border: 1px solid #f55632;
   background-color: #f55632;
@@ -210,11 +218,13 @@ input:checked + .slider .sun {
   padding: 10px 10px;
   width: 100%;
   margin-top: 30px;
-  background-color: #1e1e1e;
+  background-color: #333;
 }
+
 .tache svg {
   color: #cdbda3;
 }
+
 .tache h1 {
   color: #cdbda3;
   font-size: 1.5rem;
@@ -255,10 +265,12 @@ input:checked + .slider .sun {
 .name-tache .done {
   text-decoration: line-through;
 }
+
 .name-tache .todo.done {
   background-color: #57cb4c;
   border: 2px solid #57cb4c;
 }
+
 .name-tache .todo {
   flex: 0 0 1.5rem;
   height: 1.5rem;
@@ -266,6 +278,7 @@ input:checked + .slider .sun {
   border: 2px solid #f55632;
   cursor: pointer;
 }
+
 .emojis {
   display: flex;
   justify-content: flex-end;
@@ -274,20 +287,24 @@ input:checked + .slider .sun {
   gap: 10px;
   margin-right: 20px;
 }
+
 .trash {
   display: flex;
   justify-content: flex-end;
   width: 30px;
 }
+
 .trash img {
   cursor: pointer;
 }
+
 .edit {
   position: relative;
   display: flex;
   justify-content: flex-end;
   width: 30px;
 }
+
 .edit img {
   cursor: pointer;
 }
@@ -299,6 +316,45 @@ input:checked + .slider .sun {
   padding: 10px 0 10px 10px;
   background-color: #1e1e1e;
   outline: none;
+}
+
+body.light-theme {
+  background: white;
+  color: #333;
+}
+
+body.light-theme .header {
+  background-color: white;
+  color: #333;
+}
+
+body.light-theme .form input {
+  background-color: #f9f9f9;
+  border-color: #ccc;
+  color: #333;
+}
+
+body.light-theme .number {
+  background-color: #f55632;
+}
+
+body.light-theme .tache {
+  background-color: #f9f9f9;
+  border-color: #ccc;
+}
+
+body.light-theme .title h1,
+body.light-theme .title p,
+body.light-theme .tache h1,
+body.light-theme .date,
+body.light-theme .todo {
+  color: #333;
+}
+
+body.light-theme .clock img,
+body.light-theme .trash img,
+body.light-theme .edit img {
+  filter: invert(0) sepia(1) saturate(10000%) hue-rotate(0deg);
 }
 
 .textarea-modif {

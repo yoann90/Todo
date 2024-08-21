@@ -9,6 +9,24 @@ const input = document.querySelector("form > input");
 
 let taskCount = 0;
 
+const themeToggle = document.getElementById("checkbox");
+const currentTheme = localStorage.getItem("theme") || "dark";
+
+if (currentTheme === "light") {
+  document.body.classList.add("light-theme");
+  themeToggle.checked = true;
+}
+
+themeToggle.addEventListener("change", () => {
+  if (themeToggle.checked) {
+    document.body.classList.add("light-theme");
+    localStorage.setItem("theme", "light");
+  } else {
+    document.body.classList.remove("light-theme");
+    localStorage.setItem("theme", "dark");
+  }
+});
+
 function handleTaskAction(id, action) {
   if (action === "create") {
     create(id);
@@ -179,7 +197,7 @@ function renderTasks() {
 function renderTaskContent(id, text, done) {
   return `<div class="clock">
             <img src="./img/clock.svg"/>
-            <span class = "date">19 Aug 2024</span>
+            <span class="date">19 Aug 2024</span>
           </div>
           <div class = "content" id = "content-${id}">
             <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
@@ -206,7 +224,5 @@ form.onsubmit = (e) => {
 
 document.addEventListener("DOMContentLoaded", () => {
   setDoneCount();
+  renderTasks();
 });
-
-setDoneCount();
-renderTasks();
