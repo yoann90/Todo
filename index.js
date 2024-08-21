@@ -7,7 +7,7 @@ const list = document.querySelector(".list");
 const form = document.querySelector("form");
 const input = document.querySelector("form > input");
 
-let taskCount = 0;
+let taskCount = tasks.length
 
 const themeToggle = document.getElementById("checkbox");
 const currentTheme = localStorage.getItem("theme") || "dark";
