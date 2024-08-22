@@ -46,83 +46,7 @@ function create(id) {
 }
 
 function edit(id) {
-  const task = taskService.getTaskById(id);
-  const inputEl = document.getElementById(`textarea-${id}`);
-
-  if (inputEl) {
-    const newText = inputEl.value.trim();
-    if (newText) {
-      taskService.editTaskById(id, newText, task.done);
-      document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
-        id,
-        newText,
-        task.done
-      );
-      reattachEventListeners(id);
-
-      const trash = document.getElementById(`trash-${id}`);
-      trash.style.pointerEvents = "auto";
-      trash.style.opacity = "1";
-
-      const span = document.getElementById(`span-${id}`);
-      span.style.pointerEvents = "auto";
-      span.style.opacity = "1";
-    }
-  } else {
-    const trash = document.getElementById(`trash-${id}`);
-    trash.style.pointerEvents = "none";
-    trash.style.opacity = "0.5";
-
-    const span = document.getElementById(`span-${id}`);
-    span.style.pointerEvents = "none";
-    span.style.opacity = "0.5";
-
-    const textarea = document.createElement("textarea");
-
-    textarea.id = `textarea-${id}`;
-    textarea.value = task.text;
-    textarea.classList.add("textarea-modif");
-
-    textarea.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        handleTaskAction(id, "edit");
-      }
-    });
-
-    let shouldHandleBlur = true;
-    const listItem = document.getElementById(`li-${id}`);
-
-    // Écouteur pour détecter un clic sur le document
-    document.addEventListener("mousedown", function (event) {
-      // Si le clic est à l'intérieur du <li> "card", on empêche l'action sur blur
-      if (listItem.contains(event.target)) {
-        shouldHandleBlur = false;
-      } else {
-        shouldHandleBlur = true;
-      }
-    });
-
-    textarea.addEventListener("blur", function (event) {
-      // Si le clic s'est produit en dehors de la "card", exécuter l'action
-      if (shouldHandleBlur) {
-        handleTaskAction(id, "edit");
-      } else {
-        textarea.focus();
-      }
-    });
-
-    const nameTache = document.getElementById(`content-${id}`);
-    const h1Element = nameTache.querySelector("h1");
-    h1Element.remove();
-    nameTache.appendChild(textarea);
-    textarea.focus();
-
-    const editButton = document.getElementById(`edit-${id}`);
-    editButton.addEventListener("mousedown", function (event) {
-      event.preventDefault();
-    });
-  }
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  openModal("editTask", id);
 }
 
 function remove(id) {
@@ -141,6 +65,7 @@ function toggleDone(id) {
   document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
     id,
     task.text,
+    task.deadline,
     newDoneStatus
   );
   reattachEventListeners(id);
@@ -223,9 +148,30 @@ document.addEventListener("DOMContentLoaded", () => {
   renderTasks();
 });
 
-window.openModal = function () {
-  const inputText = document.getElementById("addTask").value;
-  document.getElementById("modal-textarea").value = inputText;
+window.openModal = function (action, id) {
+  let description = "";
+
+  if (action === "addTask") {
+    description = document.getElementById("addTask").value;
+    document.getElementById("modal-title").textContent = "Ajouter une tache";
+    document.getElementById("modal-input-date").value = "";
+  } else {
+    const task = taskService.getTaskById(id);
+    document.getElementById("modal-input-date").value = task.deadline;
+    document.getElementById(task.color).classList.add("selected-color");
+    document.getElementById(
+      "modal-title"
+    ).textContent = `Modifier la tache ${task.text}`;
+    description = task.text;
+    selectedColor = task.color;
+    const validButton = document.getElementById("modal-valid-button");
+    validButton.removeAttribute("onclick");
+    validButton.addEventListener("click", function () {
+      editForm(id);
+    });
+  }
+
+  document.getElementById("modal-textarea").value = description;
   const modalOverlay = document.querySelector(".modal-overlay");
   modalOverlay.style.display = "flex";
 };
@@ -236,6 +182,10 @@ window.closeModal = function () {
   document.getElementById("alert-modal").style.display = "none";
   modalOverlay.style.display = "none";
   selectedColor = "";
+  const elements = document.querySelectorAll(".selected-color");
+  elements.forEach((element) => {
+    element.classList.remove("selected-color");
+  });
 };
 
 window.setSelectedColor = function (id) {
@@ -259,7 +209,7 @@ window.setSelectedColor = function (id) {
   });
 };
 
-window.validateForm = function () {
+window.validateForm = function (action) {
   const description = document.getElementById("modal-textarea");
   const deadline = document.getElementById("modal-input-date");
 
@@ -285,3 +235,43 @@ window.validateForm = function () {
     console.log("formulaire incomplet");
   }
 };
+
+function editForm(id) {
+  const validButton = document.getElementById("modal-valid-button");
+  validButton.addEventListener("click", function () {
+    validateForm();
+  });
+
+  const description = document.getElementById("modal-textarea");
+  const deadline = document.getElementById("modal-input-date");
+
+  const task = taskService.getTaskById(id);
+
+  taskService.editTaskById(
+    id,
+    description.value,
+    selectedColor,
+    deadline.value,
+    task.done
+  );
+
+  const editedTask = taskService.getTaskById(id);
+
+  console.log(tasks);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+    editedTask.id,
+    editedTask.text,
+    editedTask.deadline,
+    editedTask.done
+  );
+
+  const listItem = document.getElementById(`li-${editedTask.id}`);
+  listItem.className = `tache ${selectedColor}`;
+
+  closeModal();
+}
+
+console.log(tasks);

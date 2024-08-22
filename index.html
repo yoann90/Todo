@@ -33,14 +33,16 @@
       </div>
       <div class="form">
         <input type="text" id="addTask" placeholder="write your next task" />
-        <button class="open-modal" onclick="openModal()">+</button>
+        <button class="open-modal" onclick="openModal('addTask' , '0')">
+          +
+        </button>
       </div>
       <ul class="list"></ul>
     </div>
     <div class="modal-overlay">
       <div class="modal">
         <div class="modal-header">
-          <h2 class="modal-title">Ajouter une tâche</h2>
+          <h2 id="modal-title">Ajouter une tache</h2>
           <div class="close-btn" onclick="closeModal()">
             <img class="modal-close" src="./img/close.svg" />
           </div>
@@ -119,7 +121,8 @@
             Annuler
           </button>
           <button
-            class="modal-button modal-valid-button"
+            id="modal-valid-button"
+            class="modal-button"
             onclick="validateForm()"
           >
             Valider
