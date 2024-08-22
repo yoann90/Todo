@@ -14,11 +14,11 @@
     <label class="theme-switch" for="checkbox">
       <input type="checkbox" id="checkbox" />
       <div class="slider round">
-        <span class="icon moon"><img src="img/moon.svg"/></span>
-        <span class="icon sun"><img src="img/sun.svg"></span>
+        <span class="icon moon"><img src="img/moon.svg" /></span>
+        <span class="icon sun"><img src="img/sun.svg" /></span>
       </div>
     </label>
-  </header>  
+  </header>
   <body>
     <div class="container">
       <div class="section-1">
@@ -36,6 +36,37 @@
       </form>
       <ul class="list"></ul>
     </div>
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 class="modal-title">Ajouter une tâche</h2>
+          <div class="close-btn">
+            <img class="modal-close" src="./img/close.svg" />
+          </div>
+        </div>
+        <div class="modal-description">
+          <label>Description</label>
+          <textarea class="modal-textarea"></textarea>
+        </div>
+        <div class="modal-date">
+          <label>Deadline</label>
+          <input type="date" class="modal-input-date" />
+        </div>
+        <div class="modal-color">
+          <label>Couleur de la tâche</label>
+          <div class="modal-list-color">
+            <div class="color-red color"></div>
+            <div class="color-green color"></div>
+            <div class="color-blue color"></div>
+          </div>
+        </div>
+        <form class="modal-form">
+          <button class="modal-button modal-cancel-button">Annuler</button>
+          <button class="modal-button modal-valid-button">Valider</button>
+        </form>
+      </div>
+    </div>
+
     <script type="module" src="index.js"></script>
   </body>
 </html>
