@@ -166,10 +166,10 @@ li.innerHTML = `
   </div>
   <div class="emojis">
     <div class="edit" id="edit-${task.id}">
-      <img src="./img/edit.svg"/>
+      <img src="./img/edit.svg" class="theme-icon"/>
     </div>
     <div class="trash" id="trash-${task.id}">
-      <img src="./img/trash.svg"/>
+      <img src="./img/trash.svg" class="theme-icon"/>
     </div>
   </div>
 `;

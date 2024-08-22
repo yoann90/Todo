@@ -20,7 +20,6 @@
   --color-svg: #333333;
 }
 
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -326,6 +325,15 @@ input:checked + .slider .sun {
 
 .edit img {
   cursor: pointer;
+}
+
+.theme-icon {
+  filter: invert(81%) sepia(22%) saturate(210%) hue-rotate(-15deg) brightness(100%) contrast(100%)
+
+}
+
+[data-theme="light"] .theme-icon {
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)
 }
 
 .emojis > input {
