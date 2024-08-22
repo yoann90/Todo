@@ -232,7 +232,6 @@ window.validateForm = function (action) {
     closeModal();
   } else {
     document.getElementById("alert-modal").style.display = "block";
-    console.log("formulaire incomplet");
   }
 };
 
@@ -257,8 +256,6 @@ function editForm(id) {
 
   const editedTask = taskService.getTaskById(id);
 
-  console.log(tasks);
-
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
   document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
@@ -273,5 +270,3 @@ function editForm(id) {
 
   closeModal();
 }
-
-console.log(tasks);
