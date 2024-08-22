@@ -6,6 +6,7 @@
   --color-quaternary: #e4d3b6;
   --color-quinary: #f9f9f9;
   --color-senary: #272727;
+  --color-svg: #f55632;
 }
 
 [data-theme="light"] {
@@ -16,7 +17,9 @@
   --color-quaternary: #333333;
   --color-quinary: #333333;
   --color-senary: #cccccc;
+  --color-svg: #333333;
 }
+
 
 * {
   box-sizing: border-box;
@@ -239,10 +242,6 @@ input:checked + .slider .sun {
   width: 100%;
   margin-top: 30px;
   background-color: var(--color-secondary);
-}
-
-.tache svg {
-  color: var(--color-tertiary);
 }
 
 .tache h1 {
