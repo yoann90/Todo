@@ -262,6 +262,8 @@ function editForm(id) {
     editedTask.done
   );
 
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
   const listItem = document.getElementById(`li-${editedTask.id}`);
   listItem.className = `tache ${selectedColor}`;
 
