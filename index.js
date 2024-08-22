@@ -61,13 +61,21 @@ function remove(id) {
 function toggleDone(id) {
   const task = taskService.getTaskById(id);
   const newDoneStatus = !task.done;
-  taskService.editTaskById(id, task.text, newDoneStatus);
-  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+  taskService.editTaskById(
     id,
     task.text,
+    task.color,
     task.deadline,
     newDoneStatus
   );
+  const editedTask = taskService.getTaskById(id);
+  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+    id,
+    editedTask.text,
+    editedTask.deadline,
+    newDoneStatus
+  );
+
   reattachEventListeners(id);
   setDoneCount();
   localStorage.setItem("tasks", JSON.stringify(tasks));
