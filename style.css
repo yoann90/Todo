@@ -1,3 +1,25 @@
+:root {
+  --primary-background: #1e1e1e;
+  --color-primary: #f55632;
+  --color-secondary: #333;
+  --color-tertiary: #cdbda3;
+  --color-quaternary: #e4d3b6;
+  --color-quinary: #f9f9f9;
+  --color-senary: #272727;
+  --color-svg: #f55632;
+}
+
+[data-theme="light"] {
+  --primary-background: #ffffff;
+  --color-primary: #f55632;
+  --color-secondary: #f3f3f3;
+  --color-tertiary: #333333;
+  --color-quaternary: #333333;
+  --color-quinary: #333333;
+  --color-senary: #cccccc;
+  --color-svg: #333333;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,18 +27,18 @@
 }
 
 body {
-  background: #1e1e1e;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-top: 70px;
   margin: 0;
   transition: background 0.4s, color 0.4s;
-  color: #e4d3b6;
+  background-color: var(--primary-background);
+  color: var(--color-quaternary);
+  display: none;
 }
 
 .header {
   font-size: x-large;
-  color: #e4d3b6;
+  color: var(--color-quaternary);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,7 +51,7 @@ body {
   max-width: 350px;
   height: 50px;
   z-index: 1000;
-  background-color: #1e1e1e;
+  background-color: var(--primary-background);
   transition: background-color 0.4s;
 }
 
@@ -39,9 +61,8 @@ body {
   gap: 10px;
 }
 
-
 .headerTodo {
-  color: #f95732;
+  color: var(--color-primary);
 }
 
 .theme-switch {
@@ -60,7 +81,7 @@ body {
   height: 30px;
   position: relative;
   cursor: pointer;
-  background-color: #313131;
+  background-color: var(--color-secondary);
   border-radius: 34px;
   transition: 0.4s;
   display: flex;
@@ -76,7 +97,7 @@ body {
   width: 24px;
   left: 3px;
   bottom: 3px;
-  background-color: #f55632;
+  background-color: var(--color-primary);
   border-radius: 50px;
   transition: 0.4s;
 }
@@ -89,17 +110,6 @@ input:checked + .slider:before {
   transform: translateY(-16px);
   height: 0px;
   transition: opacity 0.4s;
-}
-
-.moon {
-  left: 5px;
-  color: #f1c40f;
-}
-
-.sun {
-  right: -1px;
-  color: #fff;
-  opacity: 0.1;
 }
 
 input:checked + .slider .moon {
@@ -125,7 +135,7 @@ input:checked + .slider .sun {
   align-items: center;
   justify-content: center;
   gap: 50px;
-  border: 1px solid #cdbda3;
+  border: 1px solid var(--color-tertiary);
   border-radius: 20px;
   height: 10rem;
   width: 100%;
@@ -138,20 +148,20 @@ input:checked + .slider .sun {
 }
 
 .title h1 {
-  color: #cdbda3;
+  color: var(--color-tertiary);
   font-size: 1.5rem;
   font-weight: bolder;
 }
 
 .title p {
-  color: #cdbda3;
+  color: var(--color-tertiary);
   font-size: 1rem;
   text-transform: lowercase;
   font-weight: 100;
 }
 
 .number {
-  background-color: #333;
+  background-color: var(--color-secondary);
   width: 110px;
   height: 110px;
   border-radius: 110px;
@@ -162,7 +172,7 @@ input:checked + .slider .sun {
 }
 
 .number p {
-  color: white;
+  color: var(--color-quinary);
   font-size: 2rem;
   font-weight: bolder;
   letter-spacing: 2px;
@@ -177,18 +187,18 @@ input:checked + .slider .sun {
 }
 
 .form input {
-  color: #e4d3b6;
-  border: 1px solid #ccc;
+  color: var(--color-quaternary);
+  border: 1px solid var(--color-senary);
   border-radius: 15px;
-  background-color: #333;
+  background-color: var(--color-secondary);
   padding: 10px 12px;
   outline: none;
   width: 100%;
 }
 
 .form button {
-  border: 1px solid #f55632;
-  background-color: #f55632;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
@@ -213,20 +223,16 @@ input:checked + .slider .sun {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #cdbda3;
+  border: 1px solid var(--color-tertiary);
   border-radius: 10px;
   padding: 10px 10px;
   width: 100%;
   margin-top: 30px;
-  background-color: #333;
-}
-
-.tache svg {
-  color: #cdbda3;
+  background-color: var(--color-secondary);
 }
 
 .tache h1 {
-  color: #cdbda3;
+  color: var(--color-tertiary);
   font-size: 1.5rem;
   max-width: 80%;
   word-wrap: break-word;
@@ -257,7 +263,7 @@ input:checked + .slider .sun {
 }
 
 .date {
-  color: #cdbda3;
+  color: var(--color-tertiary);
   font-size: small;
   padding-left: 2px;
 }
@@ -275,7 +281,7 @@ input:checked + .slider .sun {
   flex: 0 0 1.5rem;
   height: 1.5rem;
   border-radius: 30px;
-  border: 2px solid #f55632;
+  border: 2px solid var(--color-primary);
   cursor: pointer;
 }
 
@@ -309,57 +315,27 @@ input:checked + .slider .sun {
   cursor: pointer;
 }
 
+.theme-icon {
+  filter: invert(81%) sepia(22%) saturate(210%) hue-rotate(-15deg) brightness(100%) contrast(100%)
+
+}
+
+[data-theme="light"] .theme-icon {
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)
+}
+
 .emojis > input {
   color: white;
   border: 1px solid black;
   border-radius: 20px;
   padding: 10px 0 10px 10px;
-  background-color: #1e1e1e;
+  background-color: var(--primary-background);
   outline: none;
 }
 
-body.light-theme {
-  background: white;
-  color: #333;
-}
-
-body.light-theme .header {
-  background-color: white;
-  color: #333;
-}
-
-body.light-theme .form input {
-  background-color: #f9f9f9;
-  border-color: #ccc;
-  color: #333;
-}
-
-body.light-theme .number {
-  background-color: #f55632;
-}
-
-body.light-theme .tache {
-  background-color: #f9f9f9;
-  border-color: #ccc;
-}
-
-body.light-theme .title h1,
-body.light-theme .title p,
-body.light-theme .tache h1,
-body.light-theme .date,
-body.light-theme .todo {
-  color: #333;
-}
-
-body.light-theme .clock img,
-body.light-theme .trash img,
-body.light-theme .edit img {
-  filter: invert(0) sepia(1) saturate(10000%) hue-rotate(0deg);
-}
-
 .textarea-modif {
-  background-color: #272727;
-  color: white;
+  background-color: var(--color-secondary);
+  color: var(--color-quinary);
   border: none;
   outline: none;
   scrollbar-width: none;
