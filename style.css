@@ -217,7 +217,7 @@ input:checked + .slider .sun {
   padding: 10px 10px;
   width: 100%;
   margin-top: 30px;
-  background-color: #333;
+  /*background-color: #333;*/
 }
 
 .tache svg {
@@ -449,7 +449,7 @@ body.light-theme .edit img {
   gap: 10px;
 }
 
-.modal-input-date {
+#modal-input-date {
   background-color: #272727;
   outline: none;
   border: none;
@@ -479,6 +479,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 40px;
   border-radius: 5px;
   cursor: pointer;
+  outline: none;
+}
+
+.selected-color {
+  outline: 3px solid black;
 }
 
 .color-cobalt {
@@ -521,8 +526,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: #20c997;
 }
 
+#alert-modal {
+  width: 100%;
+  background-color: rgb(241, 91, 91);
+  padding: 10px;
+  margin-top: 20px;
+  display: none;
+}
+
 .modal-form {
-  padding-top: 50px;
+  padding-top: 20px;
   display: flex;
   gap: 12px;
 }

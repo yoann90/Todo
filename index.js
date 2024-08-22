@@ -4,8 +4,8 @@ const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 const taskService = TasksService(tasks);
 
 const list = document.querySelector(".list");
-const form = document.querySelector("form");
-const input = document.querySelector("form > input");
+
+let selectedColor = "";
 
 let taskCount = 0;
 
@@ -164,9 +164,10 @@ function renderTask(task) {
   const li = document.createElement("li");
   li.className = "tache";
   li.id = `li-${task.id}`;
+  li.classList.add(task.color);
   li.innerHTML = `
     <div class="name-tache" id="name-tache-${task.id}">
-      ${renderTaskContent(task.id, task.text, task.done)}
+      ${renderTaskContent(task.id, task.text, task.deadline, task.done)}
     </div>
     <div class="emojis">
       <div class="edit" id="edit-${task.id}">
@@ -194,10 +195,16 @@ function renderTasks() {
   tasks.forEach(renderTask);
 }
 
-function renderTaskContent(id, text, done) {
+function renderTaskContent(id, text, deadline, done) {
+  const date = new Date(deadline);
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  const dateFormated = date
+    .toLocaleDateString("fr-FR", options)
+    .replace(".", "");
+
   return `<div class="clock">
             <img src="./img/clock.svg"/>
-            <span class="date">19 Aug 2024</span>
+            <span class="date">${dateFormated}</span>
           </div>
           <div class = "content" id = "content-${id}">
             <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
@@ -210,17 +217,6 @@ function reattachEventListeners(id) {
     .querySelector(`#span-${id}`)
     .addEventListener("click", () => handleTaskAction(id, "toggleDone"));
 }
-
-form.onsubmit = (e) => {
-  e.preventDefault();
-  const taskId = `task-${Date.now()}`;
-  handleTaskAction({ id: taskId, text: input.value, done: false }, "create");
-
-  taskCount += 1;
-  setDoneCount();
-
-  input.value = "";
-};
 
 document.addEventListener("DOMContentLoaded", () => {
   setDoneCount();
@@ -236,5 +232,56 @@ window.openModal = function () {
 
 window.closeModal = function () {
   const modalOverlay = document.querySelector(".modal-overlay");
+  document.getElementById("addTask").value = "";
+  document.getElementById("alert-modal").style.display = "none";
   modalOverlay.style.display = "none";
+  selectedColor = "";
+};
+
+window.setSelectedColor = function (id) {
+  selectedColor = id;
+
+  const elements = document.querySelectorAll(".selected-color");
+
+  const selected = document
+    .getElementById(id)
+    .classList.contains("selected-color");
+
+  if (selected) {
+    document.getElementById(id).classList.remove("selected-color");
+    selectedColor = "";
+  } else {
+    document.getElementById(id).classList.add("selected-color");
+  }
+
+  elements.forEach((element) => {
+    element.classList.remove("selected-color");
+  });
+};
+
+window.validateForm = function () {
+  const description = document.getElementById("modal-textarea");
+  const deadline = document.getElementById("modal-input-date");
+
+  if (description.value != "" && deadline.value != "" && selectedColor != "") {
+    const taskId = `task-${Date.now()}`;
+    handleTaskAction(
+      {
+        id: taskId,
+        text: description.value,
+        color: selectedColor,
+        deadline: deadline.value,
+        done: false,
+      },
+      "create"
+    );
+    document.getElementById("addTask").value = "";
+    document.getElementById(selectedColor).classList.remove("selected-color");
+    selectedColor = "";
+    deadline.value = "";
+    closeModal();
+  } else {
+    document.getElementById("alert-modal").style.display = "block";
+    console.log("formulaire incomplet");
+  }
 };
