@@ -15,12 +15,6 @@ document.documentElement.setAttribute("data-theme", savedTheme);
 
 document.body.style.display = "block";
 
-if (savedTheme === "light") {
-  themeToggle.checked = true;
-} else {
-  themeToggle.checked = false;
-}
-
 themeToggle.addEventListener("change", (e) => {
   const theme = e.target.checked ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", theme);
@@ -129,7 +123,7 @@ taskService.deleteTaskById(id);
 taskCount -= 1;
 setDoneCount();
 localStorage.setItem("tasks", JSON.stringify(tasks));
-}
+
 
 function toggleDone(id) {
 const task = taskService.getTaskById(id);
@@ -150,10 +144,10 @@ return tasks.filter((task) => task.done).length;
 }
 
 function setDoneCount() {
-const doneCount = getDoneCount();
-const numberDiv = document.querySelector(".number");
+  const doneCount = getDoneCount();
+  const numberDiv = document.querySelector(".number");
 
-numberDiv.innerHTML = `<p>${doneCount}/${taskCount}</p>`;
+  numberDiv.innerHTML = `<p>${doneCount}/${taskCount}</p>`;
 }
 
 function renderTask(task) {
