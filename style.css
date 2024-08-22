@@ -112,17 +112,6 @@ input:checked + .slider:before {
   transition: opacity 0.4s;
 }
 
-.moon {
-  left: 5px;
-  color: #f1c40f;
-}
-
-.sun {
-  right: -1px;
-  color: #fff;
-  opacity: 0.1;
-}
-
 input:checked + .slider .moon {
   opacity: 0.1;
 }
@@ -130,7 +119,6 @@ input:checked + .slider .moon {
 input:checked + .slider .sun {
   opacity: 1;
 }
-
 
 .container {
   display: flex;
