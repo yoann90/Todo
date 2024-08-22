@@ -226,3 +226,15 @@ document.addEventListener("DOMContentLoaded", () => {
   setDoneCount();
   renderTasks();
 });
+
+window.openModal = function () {
+  const inputText = document.getElementById("addTask").value;
+  document.getElementById("modal-textarea").value = inputText;
+  const modalOverlay = document.querySelector(".modal-overlay");
+  modalOverlay.style.display = "flex";
+};
+
+window.closeModal = function () {
+  const modalOverlay = document.querySelector(".modal-overlay");
+  modalOverlay.style.display = "none";
+};

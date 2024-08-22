@@ -175,7 +175,7 @@ input:checked + .slider .sun {
   width: 97%;
 }
 
-.form input {
+#addTask {
   color: #e4d3b6;
   border: 1px solid #ccc;
   border-radius: 15px;
@@ -185,7 +185,7 @@ input:checked + .slider .sun {
   width: 100%;
 }
 
-.form button {
+.open-modal {
   border: 1px solid #f55632;
   background-color: #f55632;
   font-size: 1.5rem;
@@ -381,7 +381,7 @@ body.light-theme .edit img {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1001;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -428,7 +428,7 @@ body.light-theme .edit img {
   gap: 10px;
 }
 
-.modal-textarea {
+#modal-textarea {
   background-color: #272727;
   color: white;
   border: none;
@@ -471,26 +471,54 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .modal-list-color {
   padding-top: 10px;
   display: flex;
-  gap: 15px;
+  gap: 10px;
 }
 
 .color {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.color-red {
-  background-color: red;
+.color-cobalt {
+  background-color: #007bff;
 }
 
-.color-blue {
-  background-color: blue;
+.color-emeraude {
+  background-color: #28a745;
 }
 
-.color-green {
-  background-color: green;
+.color-red-vif {
+  background-color: #dc3545;
+}
+
+.color-mandarine {
+  background-color: #fd7e14;
+}
+
+.color-or {
+  background-color: #ffc107;
+}
+
+.color-raisin {
+  background-color: #6f42c1;
+}
+
+.color-cyan {
+  background-color: #17a2b8;
+}
+
+.color-anthracite {
+  background-color: #343a40;
+}
+
+.color-rose-bonbon {
+  background-color: #e83e8c;
+}
+
+.color-menthe {
+  background-color: #20c997;
 }
 
 .modal-form {

@@ -20,6 +20,7 @@
     </label>
   </header>
   <body>
+    <script type="module" src="index.js"></script>
     <div class="container">
       <div class="section-1">
         <div class="title">
@@ -30,23 +31,23 @@
           <p>1/3</p>
         </div>
       </div>
-      <form action="" class="form">
-        <input type="text" placeholder="write your next task" />
-        <button>+</button>
-      </form>
+      <div class="form">
+        <input type="text" id="addTask" placeholder="write your next task" />
+        <button class="open-modal" onclick="openModal()">+</button>
+      </div>
       <ul class="list"></ul>
     </div>
     <div class="modal-overlay">
       <div class="modal">
         <div class="modal-header">
           <h2 class="modal-title">Ajouter une tâche</h2>
-          <div class="close-btn">
+          <div class="close-btn" onclick="closeModal()">
             <img class="modal-close" src="./img/close.svg" />
           </div>
         </div>
         <div class="modal-description">
           <label>Description</label>
-          <textarea class="modal-textarea"></textarea>
+          <textarea id="modal-textarea"></textarea>
         </div>
         <div class="modal-date">
           <label>Deadline</label>
@@ -55,9 +56,16 @@
         <div class="modal-color">
           <label>Couleur de la tâche</label>
           <div class="modal-list-color">
-            <div class="color-red color"></div>
-            <div class="color-green color"></div>
-            <div class="color-blue color"></div>
+            <div class="color-cobalt color"></div>
+            <div class="color-emeraude color"></div>
+            <div class="color-red-vif color"></div>
+            <div class="color-mandarine color"></div>
+            <div class="color-or color"></div>
+            <div class="color-raisin color"></div>
+            <div class="color-cyan color"></div>
+            <div class="color-anthracite color"></div>
+            <div class="color-rose-bonbon color"></div>
+            <div class="color-menthe color"></div>
           </div>
         </div>
         <form class="modal-form">
@@ -66,7 +74,5 @@
         </form>
       </div>
     </div>
-
-    <script type="module" src="index.js"></script>
   </body>
 </html>
