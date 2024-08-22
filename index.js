@@ -150,11 +150,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.openModal = function (action, id) {
   let description = "";
+  const validButton = document.getElementById("modal-valid-button");
+
+  validButton.onclick = null;
 
   if (action === "addTask") {
     description = document.getElementById("addTask").value;
     document.getElementById("modal-title").textContent = "Ajouter une tache";
     document.getElementById("modal-input-date").value = "";
+    validButton.onclick = function () {
+      validateForm("create");
+    };
   } else {
     const task = taskService.getTaskById(id);
     document.getElementById("modal-input-date").value = task.deadline;
@@ -164,11 +170,9 @@ window.openModal = function (action, id) {
     ).textContent = `Modifier la tache ${task.text}`;
     description = task.text;
     selectedColor = task.color;
-    const validButton = document.getElementById("modal-valid-button");
-    validButton.removeAttribute("onclick");
-    validButton.addEventListener("click", function () {
+    validButton.onclick = function () {
       editForm(id);
-    });
+    };
   }
 
   document.getElementById("modal-textarea").value = description;
@@ -236,11 +240,6 @@ window.validateForm = function (action) {
 };
 
 function editForm(id) {
-  const validButton = document.getElementById("modal-valid-button");
-  validButton.addEventListener("click", function () {
-    validateForm();
-  });
-
   const description = document.getElementById("modal-textarea");
   const deadline = document.getElementById("modal-input-date");
 
@@ -255,8 +254,6 @@ function editForm(id) {
   );
 
   const editedTask = taskService.getTaskById(id);
-
-  localStorage.setItem("tasks", JSON.stringify(tasks));
 
   document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
     editedTask.id,
