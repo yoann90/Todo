@@ -7,8 +7,6 @@ const list = document.querySelector(".list");
 const form = document.querySelector("form");
 const input = document.querySelector("form > input");
 
-let taskCount = tasks.length
-
 const themeToggle = document.getElementById("checkbox");
 const currentTheme = localStorage.getItem("theme") || "dark";
 
@@ -129,9 +127,8 @@ function remove(id) {
   document.getElementById(`li-${id}`).remove();
   taskService.deleteTaskById(id);
 
-  taskCount -= 1;
-  setDoneCount();
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  setDoneCount();
 }
 
 function toggleDone(id) {
@@ -154,7 +151,7 @@ function getDoneCount() {
 
 function setDoneCount() {
   const doneCount = getDoneCount();
-  const totalCount = taskCount;
+  const totalCount = tasks.length;
   const numberDiv = document.querySelector(".number");
 
   numberDiv.innerHTML = `<p>${doneCount}/${totalCount}</p>`;
@@ -216,9 +213,7 @@ form.onsubmit = (e) => {
   const taskId = `task-${Date.now()}`;
   handleTaskAction({ id: taskId, text: input.value, done: false }, "create");
 
-  taskCount += 1;
   setDoneCount();
-
   input.value = "";
 };
 
