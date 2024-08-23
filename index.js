@@ -107,9 +107,10 @@ function renderTask(task) {
   li.querySelector(`#span-${task.id}`).addEventListener("click", () =>
     handleTaskAction(task.id, "toggleDone")
   );
-  li.querySelector(`#edit-${task.id}`).addEventListener("click", () =>
-    handleTaskAction(task.id, "edit")
-  );
+  li.querySelector(`#edit-${task.id}`).addEventListener("click", () => {
+    handleTaskAction(task.id, "edit");
+  });
+  
   li.querySelector(`#trash-${task.id}`).addEventListener("click", () =>
     handleTaskAction(task.id, "remove")
   );
@@ -131,7 +132,7 @@ function renderTaskContent(id, text, deadline, done) {
             <img src="./img/clock.svg"/>
             <span class="date">${dateFormated}</span>
           </div>
-          <div class = "content" id = "content-${id}">
+          <div class="content" id="content-${id}">
             <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
             <h1 class="${done ? "done" : ""}">${text}</h1>
           </div>`;
@@ -161,23 +162,29 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.openModal = function (action, id) {
+  const today = new Date().toISOString().split("T")[0];
   let description = "";
   const validButton = document.getElementById("modal-valid-button");
 
+  document.getElementById("modal-input-date").setAttribute("min", today);
   validButton.onclick = null;
 
   if (action === "addTask") {
     description = document.getElementById("addTask").value;
     document.getElementById("modal-title").textContent = "Ajouter une tache";
-    document.getElementById("modal-input-date").value = "";
     validButton.onclick = function () {
       validateForm("create");
     };
   } else {
     const task = taskService.getTaskById(id);
     document.getElementById("modal-input-date").value = task.deadline;
-    document.getElementById(task.color).classList.add("selected-color");
-    document.getElementById("modal-title").textContent = `Modifier la tache`;
+
+    const colorElement = document.getElementById(task.color);
+    if (colorElement) {
+      colorElement.classList.add("selected-color");
+    }
+
+    document.getElementById("modal-title").textContent = "Modifier la tache";
     description = task.text;
     selectedColor = task.color;
     validButton.onclick = function () {
