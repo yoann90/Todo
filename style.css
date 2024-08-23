@@ -350,7 +350,6 @@ input:checked + .slider .sun {
 
 .modal {
   background-color: #333333;
-  width: 500px;
   padding: 20px;
   border-radius: 20px;
   color: white;
@@ -439,6 +438,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .modal-list-color {
   padding-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -452,6 +452,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .selected-color {
   outline: 3px solid black;
+}
+
+.color-default {
+  background-color: var(--primary-background);
 }
 
 .color-cobalt {
@@ -524,4 +528,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .modal-cancel-button {
   background-color: #242323;
   color: #ffffff;
+}
+
+@media (max-width: 1250px) {
+  .modal {
+    width: 90%;
+  }
 }

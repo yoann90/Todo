@@ -152,14 +152,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const taskInput = document.getElementById("addTask");
 
-  taskInput.addEventListener("keydown", function(event) {
+  taskInput.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       openModal("addTask");
     }
   });
 });
-
 
 window.openModal = function (action, id) {
   let description = "";
@@ -178,9 +177,7 @@ window.openModal = function (action, id) {
     const task = taskService.getTaskById(id);
     document.getElementById("modal-input-date").value = task.deadline;
     document.getElementById(task.color).classList.add("selected-color");
-    document.getElementById(
-      "modal-title"
-    ).textContent = `Modifier la tache ${task.text}`;
+    document.getElementById("modal-title").textContent = `Modifier la tache`;
     description = task.text;
     selectedColor = task.color;
     validButton.onclick = function () {
@@ -230,7 +227,10 @@ window.validateForm = function (action) {
   const description = document.getElementById("modal-textarea");
   const deadline = document.getElementById("modal-input-date");
 
-  if (description.value != "" && deadline.value != "" && selectedColor != "") {
+  if (description.value != "" && deadline.value != "") {
+    if (selectedColor == "") {
+      selectedColor = "color-default";
+    }
     const taskId = `task-${Date.now()}`;
     handleTaskAction(
       {
@@ -243,7 +243,10 @@ window.validateForm = function (action) {
       "create"
     );
     document.getElementById("addTask").value = "";
-    document.getElementById(selectedColor).classList.remove("selected-color");
+    const elementColor = document.getElementById(selectedColor);
+    if (elementColor) {
+      elementColor.classList.remove("selected-color");
+    }
     selectedColor = "";
     deadline.value = "";
     closeModal();
@@ -274,6 +277,8 @@ function editForm(id) {
     editedTask.deadline,
     editedTask.done
   );
+
+  reattachEventListeners(id);
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
