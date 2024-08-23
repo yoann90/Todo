@@ -9,22 +9,21 @@ let selectedColor = "";
 
 let taskCount = 0;
 
+const form = document.querySelector("form");
+const input = document.querySelector("form > input");
 const themeToggle = document.getElementById("checkbox");
-const currentTheme = localStorage.getItem("theme") || "dark";
 
-if (currentTheme === "light") {
-  document.body.classList.add("light-theme");
-  themeToggle.checked = true;
-}
+let taskCount = tasks.length;
 
-themeToggle.addEventListener("change", () => {
-  if (themeToggle.checked) {
-    document.body.classList.add("light-theme");
-    localStorage.setItem("theme", "light");
-  } else {
-    document.body.classList.remove("light-theme");
-    localStorage.setItem("theme", "dark");
-  }
+const savedTheme = localStorage.getItem("theme") || "light";
+document.documentElement.setAttribute("data-theme", savedTheme);
+
+document.body.style.display = "block";
+
+themeToggle.addEventListener("change", (e) => {
+  const theme = e.target.checked ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
 });
 
 function handleTaskAction(id, action) {
@@ -87,10 +86,9 @@ function getDoneCount() {
 
 function setDoneCount() {
   const doneCount = getDoneCount();
-  const totalCount = taskCount;
   const numberDiv = document.querySelector(".number");
 
-  numberDiv.innerHTML = `<p>${doneCount}/${totalCount}</p>`;
+  numberDiv.innerHTML = `<p>${doneCount}/${taskCount}</p>`;
 }
 
 function renderTask(task) {
@@ -152,6 +150,7 @@ function reattachEventListeners(id) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  renderTasks();
   setDoneCount();
   renderTasks();
 });
