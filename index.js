@@ -144,6 +144,9 @@ function reattachEventListeners(id) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const isLightTheme = savedTheme === "light";
+  themeToggle.checked = isLightTheme;
+
   renderTasks();
   setDoneCount();
 });
