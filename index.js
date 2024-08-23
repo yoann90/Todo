@@ -149,7 +149,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderTasks();
   setDoneCount();
+
+  const taskInput = document.getElementById("addTask");
+
+  taskInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      openModal("addTask");
+    }
+  });
 });
+
 
 window.openModal = function (action, id) {
   let description = "";
