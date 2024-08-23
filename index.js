@@ -7,13 +7,7 @@ const list = document.querySelector(".list");
 
 let selectedColor = "";
 
-let taskCount = 0;
-
-const form = document.querySelector("form");
-const input = document.querySelector("form > input");
 const themeToggle = document.getElementById("checkbox");
-
-let taskCount = tasks.length;
 
 const savedTheme = localStorage.getItem("theme") || "light";
 document.documentElement.setAttribute("data-theme", savedTheme);
@@ -42,6 +36,7 @@ function create(id) {
   taskService.addTaskById(id);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderTask(taskService.getTaskById(id.id));
+  setDoneCount();
 }
 
 function edit(id) {
@@ -52,7 +47,6 @@ function remove(id) {
   document.getElementById(`li-${id}`).remove();
   taskService.deleteTaskById(id);
 
-  taskCount -= 1;
   setDoneCount();
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -88,7 +82,7 @@ function setDoneCount() {
   const doneCount = getDoneCount();
   const numberDiv = document.querySelector(".number");
 
-  numberDiv.innerHTML = `<p>${doneCount}/${taskCount}</p>`;
+  numberDiv.innerHTML = `<p>${doneCount}/${tasks.length}</p>`;
 }
 
 function renderTask(task) {
@@ -152,7 +146,6 @@ function reattachEventListeners(id) {
 document.addEventListener("DOMContentLoaded", () => {
   renderTasks();
   setDoneCount();
-  renderTasks();
 });
 
 window.openModal = function (action, id) {
