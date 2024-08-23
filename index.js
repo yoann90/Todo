@@ -94,7 +94,7 @@ function renderTask(task) {
     <div class="name-tache" id="name-tache-${task.id}">
       ${renderTaskContent(task.id, task.text, task.deadline, task.done)}
     </div>
-    <div class="emojis">
+    <div class="emojis theme-icon">
       <div class="edit" id="edit-${task.id}">
         <img src="./img/edit.svg"/>
       </div>

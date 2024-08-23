@@ -7,6 +7,22 @@
   --color-quinary: #f9f9f9;
   --color-senary: #272727;
   --color-svg: #f55632;
+  --color-cobalt: #007bff;
+  --color-emeraude: #28a745;
+  --color-red-vif: #dc3545;
+  --color-mandarine: #fd7e14;
+  --color-or: #ffc107;
+  --color-raisin: #6f42c1;
+  --color-cyan: #17a2b8;
+  --color-anthracite: #343a40
+  --color-rose-bonbon: #e83e8c;
+  --color-menthe: #20c997;
+  --alert-modal: rgb(241, 91, 91);
+  --modal-cancel-button: #242323;
+  --modal-cancel-button-color: #ffffff
+  --color-todo-done: #57cb4c;
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+  --modal-background: #333333;
 }
 
 [data-theme="light"] {
@@ -19,7 +35,6 @@
   --color-senary: #cccccc;
   --color-svg: #333333;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -162,7 +177,7 @@ input:checked + .slider .sun {
 }
 
 .number {
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
   width: 110px;
   height: 110px;
   border-radius: 110px;
@@ -274,8 +289,8 @@ input:checked + .slider .sun {
 }
 
 .name-tache .todo.done {
-  background-color: #57cb4c;
-  border: 2px solid #57cb4c;
+  background-color: var(--color-todo-done);
+  border: 2px solid var(--color-todo-done);
 }
 
 .name-tache .todo {
@@ -341,7 +356,7 @@ input:checked + .slider .sun {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: var(--modal-overlay);
   z-index: 1001;
   display: none;
   justify-content: center;
@@ -349,7 +364,7 @@ input:checked + .slider .sun {
 }
 
 .modal {
-  background-color: #333333;
+  background-color: var(--modal-background);
   padding: 20px;
   border-radius: 20px;
   color: white;
@@ -370,8 +385,8 @@ input:checked + .slider .sun {
 }
 
 .close-btn {
-  border: 1px solid #242323;
-  background-color: #242323;
+  border: 1px solid var(--modal-cancel-button);
+  background-color: var(--modal-cancel-button);
   font-size: large;
   font-weight: 700;
   cursor: pointer;
@@ -396,7 +411,7 @@ input:checked + .slider .sun {
 }
 
 #modal-textarea {
-  background-color: #272727;
+  background-color: var(--color-senary);
   color: white;
   border: none;
   outline: none;
@@ -417,7 +432,7 @@ input:checked + .slider .sun {
 }
 
 #modal-input-date {
-  background-color: #272727;
+  background-color: var(--color-senary);
   outline: none;
   border: none;
   color: white;
@@ -453,54 +468,50 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .selected-color {
   outline: 3px solid black;
 }
-
-.color-default {
-  background-color: var(--primary-background);
-}
-
+ 
 .color-cobalt {
-  background-color: #007bff;
+  background-color: var(--color-cobalt);
 }
 
 .color-emeraude {
-  background-color: #28a745;
+  background-color: var(--color-emeraude);
 }
 
 .color-red-vif {
-  background-color: #dc3545;
+  background-color: var(--color-red-vif);
 }
 
 .color-mandarine {
-  background-color: #fd7e14;
+  background-color: var(--color-mandarine);
 }
 
 .color-or {
-  background-color: #ffc107;
+  background-color: var(--color-or);
 }
 
 .color-raisin {
-  background-color: #6f42c1;
+  background-color: var(--color-raisin);
 }
 
 .color-cyan {
-  background-color: #17a2b8;
+  background-color: var(--color-cyan);
 }
 
 .color-anthracite {
-  background-color: #343a40;
+  background-color: var(--color-anthracite);
 }
 
 .color-rose-bonbon {
-  background-color: #e83e8c;
+  background-color: var(--color-rose-bonbon);
 }
 
 .color-menthe {
-  background-color: #20c997;
+  background-color: var(--color-menthe);
 }
 
 #alert-modal {
   width: 100%;
-  background-color: rgb(241, 91, 91);
+  background-color: var(--alert-modal);
   padding: 10px;
   margin-top: 20px;
   display: none;
@@ -522,15 +533,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 #modal-valid-button {
-  background-color: #f55632;
+  background-color: var(--color-svg);
 }
 
 .modal-cancel-button {
-  background-color: #242323;
-  color: #ffffff;
+  background-color: var(--modal-cancel-button);
+  color: var(--modal-cancel-button-color);
 }
 
-@media (max-width: 1250px) {
+
+@media (max-width: 900px) {
   .modal {
     width: 90%;
   }
