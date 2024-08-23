@@ -14,12 +14,13 @@
     <label class="theme-switch" for="checkbox">
       <input type="checkbox" id="checkbox" />
       <div class="slider round">
-        <span class="icon moon"><img src="img/moon.svg"/></span>
-        <span class="icon sun"><img src="img/sun.svg"></span>
+        <span class="icon moon"><img src="img/moon.svg" /></span>
+        <span class="icon sun"><img src="img/sun.svg" /></span>
       </div>
     </label>
-  </header>  
+  </header>
   <body>
+    <script type="module" src="index.js"></script>
     <div class="container">
       <div class="section-1">
         <div class="title">
@@ -29,12 +30,98 @@
         <div class="number">
         </div>
       </div>
-      <form action="" class="form">
-        <input type="text" placeholder="write your next task" />
-        <button>+</button>
-      </form>
+      <div class="form">
+        <input type="text" id="addTask" placeholder="write your next task" />
+        <button class="open-modal" onclick="openModal('addTask' , '0')">
+          +
+        </button>
+      </div>
       <ul class="list"></ul>
     </div>
-    <script type="module" src="index.js"></script>
+    <div class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2 id="modal-title">Ajouter une tache</h2>
+          <div class="close-btn" onclick="closeModal()">
+            <img class="modal-close" src="./img/close.svg" />
+          </div>
+        </div>
+        <div class="modal-description">
+          <label>Description</label>
+          <textarea id="modal-textarea"></textarea>
+        </div>
+        <div class="modal-date">
+          <label>Deadline</label>
+          <input type="date" id="modal-input-date" />
+        </div>
+        <div class="modal-color">
+          <label>Couleur de la tâche</label>
+          <div class="modal-list-color">
+            <div
+              id="color-cobalt"
+              class="color color-cobalt"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-emeraude"
+              class="color color-emeraude"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-red-vif"
+              class="color color-red-vif"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-mandarine"
+              class="color color-mandarine"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-or"
+              class="color color-or"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-raisin"
+              class="color color-raisin"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-cyan"
+              class="color color-cyan"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-anthracite"
+              class="color color-anthracite"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-rose-bonbon"
+              class="color color-rose-bonbon"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+            <div
+              id="color-menthe"
+              class="color color-menthe"
+              onclick="setSelectedColor(this.id)"
+            ></div>
+          </div>
+        </div>
+        <div id="alert-modal">
+          <span>Le formulaire est incomplet</span>
+        </div>
+        <div class="modal-form">
+          <button
+            class="modal-button modal-cancel-button"
+            onclick="closeModal()"
+          >
+            Annuler
+          </button>
+          <button id="modal-valid-button" class="modal-button">Valider</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

@@ -4,11 +4,10 @@ const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 const taskService = TasksService(tasks);
 
 const list = document.querySelector(".list");
-const form = document.querySelector("form");
-const input = document.querySelector("form > input");
-const themeToggle = document.getElementById("checkbox");
 
-let taskCount = tasks.length;
+let selectedColor = "";
+
+const themeToggle = document.getElementById("checkbox");
 
 const savedTheme = localStorage.getItem("theme") || "light";
 document.documentElement.setAttribute("data-theme", savedTheme);
@@ -37,90 +36,17 @@ function create(id) {
   taskService.addTaskById(id);
   localStorage.setItem("tasks", JSON.stringify(tasks));
   renderTask(taskService.getTaskById(id.id));
+  setDoneCount();
 }
 
 function edit(id) {
-  const task = taskService.getTaskById(id);
-  const inputEl = document.getElementById(`textarea-${id}`);
-
-  if (inputEl) {
-    const newText = inputEl.value.trim();
-    if (newText) {
-      taskService.editTaskById(id, newText, task.done);
-      document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
-        id,
-        newText,
-        task.done
-      );
-      reattachEventListeners(id);
-
-      const trash = document.getElementById(`trash-${id}`);
-      trash.style.pointerEvents = "auto";
-      trash.style.opacity = "1";
-
-      const span = document.getElementById(`span-${id}`);
-      span.style.pointerEvents = "auto";
-      span.style.opacity = "1";
-    }
-  } else {
-    const trash = document.getElementById(`trash-${id}`);
-    trash.style.pointerEvents = "none";
-    trash.style.opacity = "0.5";
-
-    const span = document.getElementById(`span-${id}`);
-    span.style.pointerEvents = "none";
-    span.style.opacity = "0.5";
-
-    const textarea = document.createElement("textarea");
-
-    textarea.id = `textarea-${id}`;
-    textarea.value = task.text;
-    textarea.classList.add("textarea-modif");
-
-    textarea.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        handleTaskAction(id, "edit");
-      }
-    });
-
-    let shouldHandleBlur = true;
-    const listItem = document.getElementById(`li-${id}`);
-
-    document.addEventListener("mousedown", function (event) {
-      if (listItem.contains(event.target)) {
-        shouldHandleBlur = false;
-      } else {
-        shouldHandleBlur = true;
-      }
-    });
-
-    textarea.addEventListener("blur", function () {
-      if (shouldHandleBlur) {
-        handleTaskAction(id, "edit");
-      } else {
-        textarea.focus();
-      }
-    });
-
-    const nameTache = document.getElementById(`content-${id}`);
-    const h1Element = nameTache.querySelector("h1");
-    h1Element.remove();
-    nameTache.appendChild(textarea);
-    textarea.focus();
-
-    const editButton = document.getElementById(`edit-${id}`);
-    editButton.addEventListener("mousedown", function (event) {
-      event.preventDefault();
-    });
-  }
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  openModal("editTask", id);
 }
 
 function remove(id) {
   document.getElementById(`li-${id}`).remove();
   taskService.deleteTaskById(id);
 
-  taskCount -= 1;
   setDoneCount();
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
@@ -128,12 +54,21 @@ function remove(id) {
 function toggleDone(id) {
   const task = taskService.getTaskById(id);
   const newDoneStatus = !task.done;
-  taskService.editTaskById(id, task.text, newDoneStatus);
-  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+  taskService.editTaskById(
     id,
     task.text,
+    task.color,
+    task.deadline,
     newDoneStatus
   );
+  const editedTask = taskService.getTaskById(id);
+  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+    id,
+    editedTask.text,
+    editedTask.deadline,
+    newDoneStatus
+  );
+
   reattachEventListeners(id);
   setDoneCount();
   localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -147,26 +82,27 @@ function setDoneCount() {
   const doneCount = getDoneCount();
   const numberDiv = document.querySelector(".number");
 
-  numberDiv.innerHTML = `<p>${doneCount}/${taskCount}</p>`;
+  numberDiv.innerHTML = `<p>${doneCount}/${tasks.length}</p>`;
 }
 
 function renderTask(task) {
   const li = document.createElement("li");
   li.className = "tache";
   li.id = `li-${task.id}`;
+  li.classList.add(task.color);
   li.innerHTML = `
-  <div class="name-tache" id="name-tache-${task.id}">
-    ${renderTaskContent(task.id, task.text, task.done)}
-  </div>
-  <div class="emojis">
-    <div class="edit" id="edit-${task.id}">
-      <img src="./img/edit.svg" class="theme-icon"/>
+    <div class="name-tache" id="name-tache-${task.id}">
+      ${renderTaskContent(task.id, task.text, task.deadline, task.done)}
     </div>
-    <div class="trash" id="trash-${task.id}">
-      <img src="./img/trash.svg" class="theme-icon"/>
+    <div class="emojis">
+      <div class="edit" id="edit-${task.id}">
+        <img src="./img/edit.svg"/>
+      </div>
+      <div class="trash" id="trash-${task.id}">
+        <img src="./img/trash.svg"/>
+      </div>
     </div>
-  </div>
-`;
+  `;
   list.appendChild(li);
   li.querySelector(`#span-${task.id}`).addEventListener("click", () =>
     handleTaskAction(task.id, "toggleDone")
@@ -184,15 +120,21 @@ function renderTasks() {
   tasks.forEach(renderTask);
 }
 
-function renderTaskContent(id, text, done) {
+function renderTaskContent(id, text, deadline, done) {
+  const date = new Date(deadline);
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  const dateFormated = date
+    .toLocaleDateString("fr-FR", options)
+    .replace(".", "");
+
   return `<div class="clock">
-          <img src="./img/clock.svg"/>
-          <span class="date">19 Aug 2024</span>
-        </div>
-        <div class="content" id="content-${id}">
-          <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
-          <h1 class="${done ? "done" : ""}">${text}</h1>
-        </div>`;
+            <img src="./img/clock.svg"/>
+            <span class="date">${dateFormated}</span>
+          </div>
+          <div class = "content" id = "content-${id}">
+            <span id="span-${id}" class="todo ${done ? "done" : ""}"></span>
+            <h1 class="${done ? "done" : ""}">${text}</h1>
+          </div>`;
 }
 
 function reattachEventListeners(id) {
@@ -201,18 +143,142 @@ function reattachEventListeners(id) {
     .addEventListener("click", () => handleTaskAction(id, "toggleDone"));
 }
 
-form.onsubmit = (e) => {
-  e.preventDefault();
-  const taskId = `task-${Date.now()}`;
-  handleTaskAction({ id: taskId, text: input.value, done: false }, "create");
-
-  taskCount += 1;
-  setDoneCount();
-
-  input.value = "";
-};
-
 document.addEventListener("DOMContentLoaded", () => {
+  const isLightTheme = savedTheme === "light";
+  themeToggle.checked = isLightTheme;
+
   renderTasks();
   setDoneCount();
+
+  const taskInput = document.getElementById("addTask");
+
+  taskInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      openModal("addTask");
+    }
+  });
 });
+
+
+window.openModal = function (action, id) {
+  let description = "";
+  const validButton = document.getElementById("modal-valid-button");
+
+  validButton.onclick = null;
+
+  if (action === "addTask") {
+    description = document.getElementById("addTask").value;
+    document.getElementById("modal-title").textContent = "Ajouter une tache";
+    document.getElementById("modal-input-date").value = "";
+    validButton.onclick = function () {
+      validateForm("create");
+    };
+  } else {
+    const task = taskService.getTaskById(id);
+    document.getElementById("modal-input-date").value = task.deadline;
+    document.getElementById(task.color).classList.add("selected-color");
+    document.getElementById(
+      "modal-title"
+    ).textContent = `Modifier la tache ${task.text}`;
+    description = task.text;
+    selectedColor = task.color;
+    validButton.onclick = function () {
+      editForm(id);
+    };
+  }
+
+  document.getElementById("modal-textarea").value = description;
+  const modalOverlay = document.querySelector(".modal-overlay");
+  modalOverlay.style.display = "flex";
+};
+
+window.closeModal = function () {
+  const modalOverlay = document.querySelector(".modal-overlay");
+  document.getElementById("addTask").value = "";
+  document.getElementById("alert-modal").style.display = "none";
+  modalOverlay.style.display = "none";
+  selectedColor = "";
+  const elements = document.querySelectorAll(".selected-color");
+  elements.forEach((element) => {
+    element.classList.remove("selected-color");
+  });
+};
+
+window.setSelectedColor = function (id) {
+  selectedColor = id;
+
+  const elements = document.querySelectorAll(".selected-color");
+
+  const selected = document
+    .getElementById(id)
+    .classList.contains("selected-color");
+
+  if (selected) {
+    document.getElementById(id).classList.remove("selected-color");
+    selectedColor = "";
+  } else {
+    document.getElementById(id).classList.add("selected-color");
+  }
+
+  elements.forEach((element) => {
+    element.classList.remove("selected-color");
+  });
+};
+
+window.validateForm = function (action) {
+  const description = document.getElementById("modal-textarea");
+  const deadline = document.getElementById("modal-input-date");
+
+  if (description.value != "" && deadline.value != "" && selectedColor != "") {
+    const taskId = `task-${Date.now()}`;
+    handleTaskAction(
+      {
+        id: taskId,
+        text: description.value,
+        color: selectedColor,
+        deadline: deadline.value,
+        done: false,
+      },
+      "create"
+    );
+    document.getElementById("addTask").value = "";
+    document.getElementById(selectedColor).classList.remove("selected-color");
+    selectedColor = "";
+    deadline.value = "";
+    closeModal();
+  } else {
+    document.getElementById("alert-modal").style.display = "block";
+  }
+};
+
+function editForm(id) {
+  const description = document.getElementById("modal-textarea");
+  const deadline = document.getElementById("modal-input-date");
+
+  const task = taskService.getTaskById(id);
+
+  taskService.editTaskById(
+    id,
+    description.value,
+    selectedColor,
+    deadline.value,
+    task.done
+  );
+
+  const editedTask = taskService.getTaskById(id);
+
+  document.getElementById(`name-tache-${id}`).innerHTML = renderTaskContent(
+    editedTask.id,
+    editedTask.text,
+    editedTask.deadline,
+    editedTask.done
+  );
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  const listItem = document.getElementById(`li-${editedTask.id}`);
+  listItem.className = `tache ${selectedColor}`;
+
+  closeModal();
+}

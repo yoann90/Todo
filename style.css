@@ -27,7 +27,8 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-top: 70px;
   margin: 0;
   transition: background 0.4s, color 0.4s;
@@ -196,7 +197,7 @@ input:checked + .slider .sun {
   width: 100%;
 }
 
-.form button {
+.open-modal {
   border: 1px solid var(--color-primary);
   background-color: var(--color-primary);
   font-size: 1.5rem;
@@ -316,12 +317,13 @@ input:checked + .slider .sun {
 }
 
 .theme-icon {
-  filter: invert(81%) sepia(22%) saturate(210%) hue-rotate(-15deg) brightness(100%) contrast(100%)
-
+  filter: invert(81%) sepia(22%) saturate(210%) hue-rotate(-15deg)
+    brightness(100%) contrast(100%);
 }
 
 [data-theme="light"] .theme-icon {
-  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%)
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%)
+    contrast(100%);
 }
 
 .emojis > input {
@@ -333,9 +335,70 @@ input:checked + .slider .sun {
   outline: none;
 }
 
-.textarea-modif {
-  background-color: var(--color-secondary);
-  color: var(--color-quinary);
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1001;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #333333;
+  width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  color: white;
+  z-index: 1000;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#modal-title {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+}
+
+.close-btn {
+  border: 1px solid #242323;
+  background-color: #242323;
+  font-size: large;
+  font-weight: 700;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.modal-close {
+  width: 60%;
+}
+
+.modal-description {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#modal-textarea {
+  background-color: #272727;
+  color: white;
   border: none;
   outline: none;
   scrollbar-width: none;
@@ -344,8 +407,121 @@ input:checked + .slider .sun {
   font-size: large;
   padding: 10px;
   overflow: hidden;
+  resize: vertical;
 }
 
-.textarea-modif::-webkit-scrollbar {
+.modal-date {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#modal-input-date {
+  background-color: #272727;
+  outline: none;
+  border: none;
+  color: white;
+  border-radius: 7px;
+  padding: 10px;
+  color-scheme: white;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.modal-color {
+  padding-top: 20px;
+}
+
+.modal-list-color {
+  padding-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.color {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.selected-color {
+  outline: 3px solid black;
+}
+
+.color-cobalt {
+  background-color: #007bff;
+}
+
+.color-emeraude {
+  background-color: #28a745;
+}
+
+.color-red-vif {
+  background-color: #dc3545;
+}
+
+.color-mandarine {
+  background-color: #fd7e14;
+}
+
+.color-or {
+  background-color: #ffc107;
+}
+
+.color-raisin {
+  background-color: #6f42c1;
+}
+
+.color-cyan {
+  background-color: #17a2b8;
+}
+
+.color-anthracite {
+  background-color: #343a40;
+}
+
+.color-rose-bonbon {
+  background-color: #e83e8c;
+}
+
+.color-menthe {
+  background-color: #20c997;
+}
+
+#alert-modal {
+  width: 100%;
+  background-color: rgb(241, 91, 91);
+  padding: 10px;
+  margin-top: 20px;
   display: none;
+}
+
+.modal-form {
+  padding-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.modal-button {
+  width: 100px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+#modal-valid-button {
+  background-color: #f55632;
+}
+
+.modal-cancel-button {
+  background-color: #242323;
+  color: #ffffff;
 }
